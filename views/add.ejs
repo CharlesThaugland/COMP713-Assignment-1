@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsoleDex</title>
+</head>
+<body>
+
+    <h1>Add a Console</h1>
+    <p>currently: <%= counter %> in the system</p>
+
+    <form action="/home/add" method="POST">
+        <label>TEMP, ID:</label>
+        <input type="text" name="console_id">
+        <br><br>
+
+        <label>Name:</label>
+        <input type="text" name="console_condition">
+        <br><br>
+
+        <label>Condition:</label>
+        <input type="text" name="console_condition">
+        <br><br>
+
+        <label>Value (NZD):</label>
+        <input type="text" name="console_condition">
+        <br><br>
+
+        <label>Model Number:</label>
+        <input type="text" name="console_condition">
+        <br><br>
+
+        <label>Notes:</label>
+        <input type="text" name="console_condition">
+
+
+
+        <h1>Add Accessories</h1>
+        <div id="accessories"></div>
+    
+        <button type="button" onclick="addAccessory()">Add Accessory</button>
+        <br><br>
+
+        <button type="submit">Add Console</button>
+    </form>
+
+    <!--script for adding accessories dynamically on the browser side rather than using ejs server side rendering-->
+    <script>
+        let accCount = 0; //accessory counter
+        
+        //create each accessory form
+        function addAccessory(){
+            const accessories = document.getElementById("accessories"); //accessories div
+            const accessory = document.createElement("div") //create a div per element
+
+            //now fill the div with the repsevitve feilds to fill out
+            accessory.innerHTML = `
+                <h3>Accessory ${accCount + 1}</h3>
+
+                <label>Name:</label>
+                <input type="text" name=accessories[${accCount}][name]>
+                <br><br>
+
+                <label>Condition:</label>
+                <input type="text" name=accessories[${accCount}][acc_condition]>
+                <br><br>
+
+                <label>Model Number:</label>
+                <input type="text" name=accessories[${accCount}][model_no]>
+                <br><br>
+
+                <label>Notes:</label>
+                <input type="text" name=accessories[${accCount}][notes]>
+                <br><br>
+            `;
+
+            //add accessory fields to div
+            accessories.appendChild(accessory);
+
+            //increase accessory counter for arr
+            accCount++;
+        }
+    </script>
+</body>
+</html>

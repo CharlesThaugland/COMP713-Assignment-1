@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsoleDex</title>
+</head>
+<body>
+
+    <h1>Welcome!, Here are your consoles!</h1>
+    <button onclick="window.location.href='/home/add'">
+        Add Console
+    </button>
+    <button onclick="window.location.href='/home/edit'">
+        Edit Console
+    </button>
+    
+    <p><br></p>
+    <% consoles.forEach(function(console){ %>
+
+        <div class="console">
+            <h2><%= console.name %></h2>
+            <p>Condition: <%= console.condition %></p>
+            <p>Value: <%= console.value %></p>
+            <p>Model Number: <%= console.model_no %></p>
+            <p>Region: <%= console.region %></p>
+            <p>Description: <%= console.notes %></p>
+        </div>
+    <% }); %>
+</body>
+</html>

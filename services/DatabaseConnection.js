@@ -15,7 +15,7 @@ function createConnectionPool(){
 }
 
 //close all pool connections
-function closeConnection() {
+async function closeConnection() {
     //first check if there is a connection
     if(!poolConnection){
         console.log("no current pool connections");
@@ -23,13 +23,16 @@ function closeConnection() {
     } 
     //if a connection exists then close it
     else {
-       poolConnection.end((err) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        console.log("Pool Closed");
-        });
+       try {
+        //close the connection
+        await poolConnection.end()
+        poolConnection = null;
+
+        console.log("pool closed");
+       }
+       catch(err){
+        console.log(err);
+       }
     }
 } 
     

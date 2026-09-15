@@ -3,7 +3,7 @@ const con = database.createConnectionPool();
 
 //retrieve all consoles
 async function retrieveAll(){
-    let sql = "SELECT * FROM consoles";
+    let sql = "SELECT * FROM consoledex.consoles";
 
     const [results] = await con.query(sql);
     console.log("DB: consoles retrived");
@@ -13,7 +13,7 @@ async function retrieveAll(){
 
 //retreive a specific console
 async function retrieveConsole(id){
-    let sql = "SELECT * FROM consoles WHERE console_id = ?"
+    let sql = "SELECT * FROM consoledex.consoles WHERE console_id = ?"
 
     const [results] = await con.query(sql, [id]);
     console.log("DB: console retrived");
