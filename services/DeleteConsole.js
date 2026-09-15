@@ -2,13 +2,13 @@ const database = require("./DatabaseConnection");
 const con = database.createConnectionPool();
 
 //delete a specific console
-function retrieveAll(id){
-    let sql = "DELETE FROM Consoles WHERE console_id = ?";
+async function deleteConsole(id){
+    let sql = "DELETE FROM consoles WHERE console_id = ?";
 
-    con.query(sql, id, function(err, results) {
-        if (err) throw err;
-        console.log("DB: consoles retrived");
-        
-        return results;
-    });
+    await con.query(sql, [id]);
+    console.log("DB: deleted console");
 }
+
+module.exports = {
+    deleteConsole
+};

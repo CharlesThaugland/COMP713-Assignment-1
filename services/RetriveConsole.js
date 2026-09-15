@@ -2,25 +2,26 @@ const database = require("./DatabaseConnection");
 const con = database.createConnectionPool();
 
 //retrieve all consoles
-function retrieveAll(){
+async function retrieveAll(){
     let sql = "SELECT * FROM consoles";
 
-    con.query(sql, function(err, results) {
-        if (err) throw err;
-        console.log("DB: consoles retrived");
-        
-        return results;
-    });
+    const [results] = await con.query(sql);
+    console.log("DB: consoles retrived");
+
+    return results;
 }
 
 //retreive a specific console
-function retrieveConsole(id){
+async function retrieveConsole(id){
     let sql = "SELECT * FROM consoles WHERE console_id = ?"
 
-    con.query(sql, id, function(err, results) {
-        if (err) throw err;
-        console.log("DB: console retrived");
-        
-        return results;
-    })
+    const [results] = await con.query(sql, [id]);
+    console.log("DB: console retrived");
+
+    return results[0];
 }
+
+module.exports = {
+    retrieveAll,
+    retrieveConsole
+};

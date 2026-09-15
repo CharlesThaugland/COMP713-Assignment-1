@@ -1,6 +1,5 @@
 //create a connection with the local docker container database
-let mysql = require('mysql');
-
+const mysql = require("mysql2/promise");
 let poolConnection = null;
 
 //create a pool of connections so that multiple connections can be established

@@ -3,46 +3,36 @@ const database = require("./DatabaseConnection");
 const con = database.createConnectionPool();
 
 //function to create the entire db and insert correct tables
-function initialize(){
-    //use callbac to exec the functions in this order:
+async function initialize(){
     //1. wipe all consoledexdb, create db, create tables
-    wipeDB(function () { 
-        createDB(function () {
-            createTables();
-        });
-    });
+    await wipeDB();
+    await createDB();
+    await createTables();
 }
 //== HELPER FUNCTIONS ==
 
 //function to delete entire database
-function wipeDB(callback){
+async function wipeDB(){
     //delete the consoledex database
     let sql = "DROP DATABASE IF EXISTS consoledex";
     
     //exec the query
-    con.query(sql, function (err,result) {
-        if (err) throw err;
-        console.log("DB: entire database has been deleted!");
-
-        callback();
-    })
+    await con.query(sql);
+    console.log("DB: entire database has been deleted!");
 }
 
-function createDB(callback){
+async function createDB(){
     //create consoledex db, this db will not previously exist, so no checks required
     let sql = "CREATE DATABASE consoledex"
 
     //exec the query
-    con.query(sql, function (err,result) {
-        if (err) throw err;
-        console.log("DB: entire database has been created!");
+    await con.query(sql);
+    console.log("DB: entire database has been created!");
 
-        callback();
-    })
 }
 
 //create the tables
-function createTables(){
+async function createTables(){
     //create the console table
     const sqlConsole = `
     CREATE TABLE consoledex.consoles(
@@ -65,18 +55,17 @@ function createTables(){
         console_id INT,
 
         FOREIGN KEY (console_id)
-            REFERENCES console(console_id)
+            REFERENCES consoles(console_id)
     )
     `
     //execure the statements in order
-    con.query(sqlConsole, function (err,result) {
-        if (err) throw err;
-        console.log("DB: consoles tabel created!");
+    await con.query(sqlConsole)
+    console.log("DB: consoles tabel created!");
 
-        //call accessories next
-        con.query(sqlAccess, function (err,result) {
-            if (err) throw err;
-            console.log("DB: accessories tabel created!");
-        })
-    })
+    await con.query(sqlAccess)
+    console.log("DB: accessories tabel created!");
 }
+
+module.exports = {
+    initialize
+};
