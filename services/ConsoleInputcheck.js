@@ -1,7 +1,7 @@
 //check to see if the console input was valid
 function consolecheck(consoleData){
-    //check each value in each text field to see if exceeds limit
-    if(consoleData.name.length > 100){
+    //check each value in each text field to see if exceeds limit or for name, is not null
+    if(consoleData.name.length > 100 || consoleData.name.trim().length === 0){
         return false;
     }
     if(consoleData.console_condition.length > 50){
@@ -31,8 +31,8 @@ function consolecheck(consoleData){
 
 //check to see if accessory input was valid
 function accessoryCheck(accData){
-    //check each value in each text field to see if exceeds limit
-    if(accData.name.length > 100){
+    //check each value in each text field to see if exceeds limit, or name is not null
+    if(accData.name.length > 100 || accData.name.trim().length === 0){
         return false;
     }
     if(accData.acc_condition.length > 50){
@@ -41,18 +41,7 @@ function accessoryCheck(accData){
     if(accData.model_no.length > 50){
         return false;
     }
-    if(consoleData.notes.length > 1000){
-        return false;
-    }
-
-    //attempt to convert value to decimal
-    const value = parseFloat(consoleData.value)
-    
-    //check to se if it was a valid decimal and fits within range
-    if(Number.isNaN(value)){
-        return false;
-    }
-    if(value < 0 || value > 9999999.99){
+    if(accData.notes.length > 500){
         return false;
     }
 
@@ -63,4 +52,4 @@ function accessoryCheck(accData){
 module.exports = {
     consolecheck,
     accessoryCheck
-};
+}

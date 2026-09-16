@@ -20,16 +20,15 @@ async function newConsole(consoleData, accessoriesData){
 
     //== STORE ACCESSORIES ==
     //loop through each accessory, storing the data and relating to console
-    for(let acc in accessoriesData){
-        let sql = `INSERT INTO consoledex.accessories (acc_id, name, acc_condition, model_no, notes, console_id)
-        VALUES (?, ?, ?, ?, ?, ?)`;
+    for(const acc of accessoriesData){
+        let sql = `INSERT INTO consoledex.accessories (name, acc_condition, model_no, notes, console_id)
+        VALUES (?, ?, ?, ?, ?)`;
 
         //query db
-        await con.query(sql, [accessoriesData[acc].acc_id, 
-            accessoriesData[acc].name, 
-            accessoriesData[acc].acc_condition, 
-            accessoriesData[acc].model_no, 
-            accessoriesData[acc].notes, 
+        await con.query(sql, [acc.name, 
+            acc.acc_condition, 
+            acc.model_no, 
+            acc.notes, 
             consoleData.console_id]);
         console.log("DB: accessories for console added!");
     }

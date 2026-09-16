@@ -20,10 +20,18 @@ async function displayHomePage(req, res) {
 async function displayAddPage(req, res) {
     //get all the consoles from the db
     const consoles = await databaseRetrive.retrieveAll();
+    const query = req.query.badinput; //retrive the query string
+    let badInput = "false"; // use string as query will be string
+    
+    ///check if redirect
+    if(query !== undefined){
+        badInput = query;
+    }
 
     res.render("add", {
         //send the number through to the ejs page
-        counter: consoles.length
+        counter: consoles.length,
+        input: badInput
     });
 }
 
@@ -37,7 +45,7 @@ async function checkAndSubmitConsole(req, res) {
         notes: req.body.notes
     };
 
-    const accessoryData = req.body.accessories;
+    const accessoryData = req.body.accessories || []; //if undefined set as empty arr
 
     //check the entrires of console
     let consoleCheck = await inputCheck.consolecheck(consoleData);
@@ -46,9 +54,9 @@ async function checkAndSubmitConsole(req, res) {
     let accessoryCheck = true; //defualt to true if no accessories
 
     //get each accessory, check and add the data
-    for(let i in accessoryData.length){
+    for(const acc of accessoryData){
         //check format
-        accessoryCheck = await inputCheck.accessoryCheck(accessoryData[i]);
+        accessoryCheck = await inputCheck.accessoryCheck(acc);
 
         if(!accessoryCheck){
             //back accessory so exit loop and stop checking
@@ -64,9 +72,13 @@ async function checkAndSubmitConsole(req, res) {
 
         //store data
         await databaseStore.newConsole(consoleData, accessoryData);
+
+        //redirct to home
+        res.redirect("/home");
     }
     else{
-        //redirect page
+        //redirect page, pass the query in to tell route that user input is incorrect
+        res.redirect("/home/add?badinput=true");
     }
 }
 
