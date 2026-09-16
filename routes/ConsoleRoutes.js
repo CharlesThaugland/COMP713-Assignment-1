@@ -14,7 +14,7 @@ router.get("/home", consoleController.displayHomePage);
 
 //== ADD CONSOLE PAGE ==
 router.get("/home/add", consoleController.displayAddPage);
-router.post("/home/add". consoleController.)
+router.post("/home/add", consoleController.checkAndSubmitConsole);
 
 //== EDIT CONSOLE PAGE ==
 

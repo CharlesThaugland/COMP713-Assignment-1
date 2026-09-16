@@ -2,6 +2,8 @@
 const databaseDelete = require("../services/DeleteConsole");
 const databaseRetrive = require("../services/RetriveConsole");
 const databaseStore = require("../services/StoreConsole");
+const inputCheck = require("../services/ConsoleInputcheck");
+const IDGenerator = require("../services/ConsoleIDGenerator.js");
 
 //display the contents of the home page
 async function displayHomePage(req, res) {
@@ -35,13 +37,41 @@ async function checkAndSubmitConsole(req, res) {
         notes: req.body.notes
     };
 
-    //add to db
-    await databaseStore.newConsole(consoleData);
+    const accessoryData = req.body.accessories;
 
+    //check the entrires of console
+    let consoleCheck = await inputCheck.consolecheck(consoleData);
     
+    //accessory checj
+    let accessoryCheck = true; //defualt to true if no accessories
+
+    //get each accessory, check and add the data
+    for(let i in accessoryData.length){
+        //check format
+        accessoryCheck = await inputCheck.accessoryCheck(accessoryData[i]);
+
+        if(!accessoryCheck){
+            //back accessory so exit loop and stop checking
+            break;
+        }
+    }
+
+    //store the console and accessories, both need to be correct to store
+    //if not correct, tell user and reset form
+    if(consoleCheck && accessoryCheck){
+        //generate a id for console
+        consoleData.console_id = await IDGenerator.ConsoleIDGenerator();
+
+        //store data
+        await databaseStore.newConsole(consoleData, accessoryData);
+    }
+    else{
+        //redirect page
+    }
 }
 
 module.exports = {
     displayHomePage,
-    displayAddPage
+    displayAddPage,
+    checkAndSubmitConsole
 };
