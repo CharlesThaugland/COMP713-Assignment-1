@@ -36,7 +36,7 @@ async function createTables(){
     //create the console table
     const sqlConsole = `
     CREATE TABLE consoledex.consoles(
-        console_id INT PRIMARY KEY,
+        console_id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(100) NOT NULL,
         console_condition VARCHAR(50),
         value DECIMAL(10,2),
@@ -46,7 +46,7 @@ async function createTables(){
     `
     const sqlAccess = `
     CREATE TABLE consoledex.accessories(
-        acc_id INT PRIMARY KEY,
+        acc_id INT PRIMARY KEY AUTO_INCREMENT,
         name VARCHAR(100) NOT NULL,
         acc_condition VARCHAR(50),
         model_no VARCHAR(50),

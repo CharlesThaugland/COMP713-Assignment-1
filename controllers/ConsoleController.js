@@ -3,7 +3,6 @@ const databaseDelete = require("../services/DeleteConsole");
 const databaseRetrive = require("../services/RetriveConsole");
 const databaseStore = require("../services/StoreConsole");
 const inputCheck = require("../services/ConsoleInputcheck");
-const IDGenerator = require("../services/ConsoleIDGenerator.js");
 
 //display the contents of the home page
 async function displayHomePage(req, res) {
@@ -67,9 +66,6 @@ async function checkAndSubmitConsole(req, res) {
     //store the console and accessories, both need to be correct to store
     //if not correct, tell user and reset form
     if(consoleCheck && accessoryCheck){
-        //generate a id for console
-        consoleData.console_id = await IDGenerator.ConsoleIDGenerator();
-
         //store data
         await databaseStore.newConsole(consoleData, accessoryData);
 

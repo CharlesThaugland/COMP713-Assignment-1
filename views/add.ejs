@@ -23,27 +23,27 @@
     <form action="/home/add" method="POST">
         <label>Name:</label>
         <input type="text" name="name">
-        <P><br>(100 characters max)</P>
+        <P>(100 characters max)</P>
         <br><br>
 
         <label>Condition:</label>
         <input type="text" name="console_condition">
-        <P><br>(50 characters max)</P>
+        <P>(50 characters max)</P>
         <br><br>
 
         <label>Value (NZD):</label>
         <input type="text" name="value">
-        <P><br>(format: xxx.xx)</P>
+        <P>(format: xxx.xx)</P>
         <br><br>
 
         <label>Model Number:</label>
         <input type="text" name="model_no">
-        <P><br>(50 characters max)</P>
+        <P>(50 characters max)</P>
         <br><br>
 
         <label>Notes:</label>
-        <input type="text" name="notes">
-        <P><br>(1000 characters max)</P>
+        <textarea name="notes" rows="5" cols="50"></textarea>
+        <P>(1000 characters max)</P>
 
 
         <!--accessories section, use javascript to dynamically add accessories-->
@@ -67,26 +67,26 @@
 
             //now fill the div with the repsevitve feilds to fill out
             accessory.innerHTML = `
-                <h3>Accessory ${accCount + 1}</h3>
+                <h2>Accessory ${accCount + 1}</h2>
 
                 <label>Name:</label>
                 <input type="text" name=accessories[${accCount}][name]>
-                <P><br>(100 characters max)</P>
+                <P>(100 characters max)</P>
                 <br><br>
 
                 <label>Condition:</label>
                 <input type="text" name=accessories[${accCount}][acc_condition]>
-                <P><br>(50 characters max)</P>
+                <P>(50 characters max)</P>
                 <br><br>
 
                 <label>Model Number:</label>
                 <input type="text" name=accessories[${accCount}][model_no]>
-                <P><br>(50 characters max)</P>
+                <P>(50 characters max)</P>
                 <br><br>
 
                 <label>Notes:</label>
                 <input type="text" name=accessories[${accCount}][notes]>
-                <P><br>(500 characters max)</P>
+                <P>(500 characters max)</P>
                 <br><br>
             `;
 

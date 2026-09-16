@@ -5,18 +5,20 @@ const con = database.createConnectionPool();
 //store a new console
 async function newConsole(consoleData, accessoriesData){
     //== STORE CONSOLE ==
-    let sql = `INSERT INTO consoledex.consoles (console_id, name, console_condition, value, model_no, notes)
-    VALUES (?, ?, ?, ?, ?, ?)`;
+    let sql = `INSERT INTO consoledex.consoles (name, console_condition, value, model_no, notes)
+    VALUES (?, ?, ?, ?, ?)`;
 
-    //query and get results
-    await con.query(sql, [consoleData.console_id, 
-        consoleData.name, 
+    //query and get created console_id for accessory
+    const [result] = await con.query(sql, [consoleData.name, 
         consoleData.console_condition, 
         consoleData.value, 
         consoleData.model_no, 
         consoleData.notes]);
 
     console.log("DB: new console added!");
+    
+    //get the generated console_id from the sql query
+    const consoleID = result.insertId;
 
     //== STORE ACCESSORIES ==
     //loop through each accessory, storing the data and relating to console
@@ -29,7 +31,7 @@ async function newConsole(consoleData, accessoriesData){
             acc.acc_condition, 
             acc.model_no, 
             acc.notes, 
-            consoleData.console_id]);
+            consoleID]);
         console.log("DB: accessories for console added!");
     }
 }
