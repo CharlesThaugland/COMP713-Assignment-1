@@ -7,13 +7,14 @@
 </head>
 <body>
 
-    <h1>Add a Console</h1>
-    <p>currently: <%= counter %> in the system</p>
+    <h1>== ADD A CONSOLE ==</h1>
+    <h3>currently: <%= counter %> in the system</h3>
 
     <!-- if user inputs bad input, they are redirected and this message will show-->
     <% if (input === "true") { %>
         <br>
-        <h3>You entered the wrong details for a console or accessory!</h3>
+        <h3>You entered the wrong details for a console or accessory! Review the following:</h3>
+        <p>- a console and accessory require a name, this field cannot be empty!<b></p>
         <p>- make sure you stick to character limit for text based entries<br></p>
         <p>- value field must also be numeric and within a resonable price range<br></p>
         <p>- please re-enter details as specified!</p>

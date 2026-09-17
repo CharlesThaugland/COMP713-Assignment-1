@@ -18,11 +18,17 @@
 
         <div class="console">
             <h2><%= console.name %></h2>
-            <p>Condition: <%= console.condition %></p>
+            <p>Condition: <%= console.console_condition %></p>
             <p>Value: <%= console.value %></p>
             <p>Model Number: <%= console.model_no %></p>
-            <p>Region: <%= console.region %></p>
             <p>Description: <%= console.notes %></p>
+
+            <!--view the full console detials and accessories-->
+            <form action="/home/viewconsole" method="GET">
+                <input type="hidden" name="console_id" value="<%= console.console_id %>"> 
+                <button type="submit">View Full Console Details and Accessories</button>
+            </form>
+
         </div>
     <% }); %>
 </body>

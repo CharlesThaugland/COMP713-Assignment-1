@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsoleDex</title>
+</head>
+<body>
+
+    <h1>== YOUR CONSOLE ==</h1>
+    <h2>Full details of your console and accessories</h2>
+    <button onclick="window.location.href='/home'">
+        Return Home
+    </button>
+
+    <br>
+    
+    <h3>Console</h3>
+    <h2><%= consoles.name %></h2>
+    <p>Condition: <%= consoles.console_condition %></p>
+    <p>Value: <%= consoles.value %></p>
+    <p>Model Number: <%= consoles.model_no %></p>
+    <p>Description: <%= consoles.notes %></p>
+    <p>Console ID in system: <%= consoles.console_id %></p>
+    <br>
+    <h3>Accessories:</h3>
+    <% accessories.forEach(function(acc){ %>
+
+        <div class="console">
+            <h2><%= accessories.name %></h2>
+            <p>Condition: <%= acc.acc_condition %></p>
+            <p>Model Number: <%= acc.model_no %></p>
+            <p>Description: <%= acc.notes %></p>
+            <p>Accessory ID in system: <%= acc.acc_id %></p>
+        </div>
+    <% }); %>
+    <br>
+
+    <!-- delete the console-->
+    <form action="/home/delete" method="POST">
+        <input type="hidden" name="console_id" value="<%= consoles.console_id %>"> 
+        <button type="submit">Delete Console</button>
+    </form>
+</body>
+</html>

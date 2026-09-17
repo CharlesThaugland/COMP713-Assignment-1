@@ -21,7 +21,18 @@ async function retrieveConsole(id){
     return results[0];
 }
 
+//retrive the accessories
+async function retrieveAccessories(id){
+    let sql = "SELECT * FROM consoledex.accessories WHERE console_id = ?"
+
+    const [results] = await con.query(sql, [id]);
+    console.log("DB: console retrived");
+
+    return results;
+}
+
 module.exports = {
     retrieveAll,
-    retrieveConsole
+    retrieveConsole,
+    retrieveAccessories
 };

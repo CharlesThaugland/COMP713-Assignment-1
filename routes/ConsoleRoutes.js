@@ -1,3 +1,5 @@
+//TODO
+// - need to add so that user cannot go to other routes and cause error
 //express
 const express = require('express');
 const router = express.Router();
@@ -7,19 +9,17 @@ const consoleController = require("../controllers/ConsoleController");
 
 
 //== HOME PAGE ==
-//display home page
-router.get("/home", consoleController.displayHomePage);
-//reroute to home
-router.get("/", consoleController.homeRoute);
-
-
+router.get("/home", consoleController.displayHomePage); //display home page
+router.get("/", consoleController.homeRoute); //reroute to home
 
 //== ADD CONSOLE PAGE ==
-router.get("/home/add", consoleController.displayAddPage);
-router.post("/home/add", consoleController.checkAndSubmitConsole);
+router.get("/home/add", consoleController.displayAddPage); //display add console page
+router.post("/home/add", consoleController.checkAndSubmitConsole); //submit console to db
 
-//== EDIT CONSOLE PAGE ==
+//== CONSOLE AND ACCESSORIES PAGE ==
+router.get("/home/viewconsole", consoleController.displayViewConsolePage); //display the console full details page
 
-
+//== DELETE CONSOLE ==
+router.post("/home/delete", consoleController.deleteConsole); //remove console from db
 
 module.exports = router;

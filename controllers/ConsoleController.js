@@ -5,11 +5,13 @@ const databaseStore = require("../services/StoreConsole");
 const inputCheck = require("../services/ConsoleInputcheck");
 
 
+// == HOME PAGE ==
 //reroute / to home/
 async function homeRoute(req, res){
     //redict
     res.redirect("/home");
 }
+
 //display the contents of the home page
 async function displayHomePage(req, res) {
     //get all the consoles 
@@ -21,6 +23,9 @@ async function displayHomePage(req, res) {
     });
 }
 
+
+
+//== ADD CONSOLE PAGE ==
 //display the page to add a new console
 async function displayAddPage(req, res) {
     //get all the consoles from the db
@@ -84,9 +89,48 @@ async function checkAndSubmitConsole(req, res) {
     }
 }
 
+
+
+//== VIEW FULL CONSOLE DETAILS PAGE ==
+//display view consle page
+async function displayViewConsolePage(req, res){
+    //display the page using the id
+    const console_id = req.query.console_id;
+
+    //retrive the console and its accessories
+    const consoleData = await databaseRetrive.retrieveConsole(console_id);
+    const accessoriesData = await databaseRetrive.retrieveAccessories(console_id);
+
+    //render the page sending the objects to ejs
+    res.render("viewconsole",{ 
+        consoles: consoleData,
+        accessories: accessoriesData
+    });
+}
+
+//delete console from the db
+async function deleteConsole(req, res) {
+    const console_id = req.body.console_id;
+
+    //delete the console from the db then redirect to home page
+    if(console_id !== undefined){
+        //delte console
+        await databaseDelete.deleteConsole(console_id);
+        console.log("RTE: deleted console!");
+    }
+    else{
+        console.log(`RTE: cannot delete console!, console is ${console_id}`);
+    }
+
+    //redirect
+    res.redirect("/home");
+}
+
 module.exports = {
     displayHomePage,
     displayAddPage,
     checkAndSubmitConsole,
-    homeRoute
+    homeRoute,
+    deleteConsole,
+    displayViewConsolePage
 };
