@@ -22,4 +22,9 @@ router.get("/home/viewconsole", consoleController.displayViewConsolePage); //dis
 //== DELETE CONSOLE ==
 router.post("/home/delete", consoleController.deleteConsole); //remove console from db
 
+//== CATCH ROUTE ==
+router.use((req, res) => {
+    res.redirect("/home");
+});
+
 module.exports = router;

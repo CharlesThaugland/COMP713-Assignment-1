@@ -45,7 +45,7 @@ async function displayAddPage(req, res) {
     });
 }
 
-async function checkAndSubmitConsole(req, res) {
+async function checkAndSubmitConsole(req, res) {    
     //get the body data
     const consoleData = {
         name: req.body.name,
@@ -97,15 +97,21 @@ async function displayViewConsolePage(req, res){
     //display the page using the id
     const console_id = req.query.console_id;
 
-    //retrive the console and its accessories
-    const consoleData = await databaseRetrive.retrieveConsole(console_id);
-    const accessoriesData = await databaseRetrive.retrieveAccessories(console_id);
+    //check if console id is undefined, if so user has tried to access the page view the url bar
+    if(console_id === undefined){
+        //redirect back to home page
+        res.redirect("/home");
+    } else {
+        //retrive the console and its accessories
+        const consoleData = await databaseRetrive.retrieveConsole(console_id);
+        const accessoriesData = await databaseRetrive.retrieveAccessories(console_id);
 
-    //render the page sending the objects to ejs
-    res.render("viewconsole",{ 
-        consoles: consoleData,
-        accessories: accessoriesData
-    });
+        //render the page sending the objects to ejs
+        res.render("viewconsole",{ 
+            consoles: consoleData,
+            accessories: accessoriesData
+        });
+    }
 }
 
 //delete console from the db

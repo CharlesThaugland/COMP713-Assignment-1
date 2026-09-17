@@ -12,6 +12,11 @@
     <button onclick="window.location.href='/home'">
         Return Home
     </button>
+    <!-- delete the console-->
+    <form action="/home/delete" method="POST">
+        <input type="hidden" name="console_id" value="<%= consoles.console_id %>"> 
+        <button type="submit">Delete Console</button>
+    </form>
 
     <br>
     
@@ -34,12 +39,5 @@
             <p>Accessory ID in system: <%= acc.acc_id %></p>
         </div>
     <% }); %>
-    <br>
-
-    <!-- delete the console-->
-    <form action="/home/delete" method="POST">
-        <input type="hidden" name="console_id" value="<%= consoles.console_id %>"> 
-        <button type="submit">Delete Console</button>
-    </form>
 </body>
 </html>
