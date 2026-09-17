@@ -4,6 +4,12 @@ const databaseRetrive = require("../services/RetriveConsole");
 const databaseStore = require("../services/StoreConsole");
 const inputCheck = require("../services/ConsoleInputcheck");
 
+
+//reroute / to home/
+async function homeRoute(req, res){
+    //redict
+    res.redirect("/home");
+}
 //display the contents of the home page
 async function displayHomePage(req, res) {
     //get all the consoles 
@@ -81,5 +87,6 @@ async function checkAndSubmitConsole(req, res) {
 module.exports = {
     displayHomePage,
     displayAddPage,
-    checkAndSubmitConsole
+    checkAndSubmitConsole,
+    homeRoute
 };
