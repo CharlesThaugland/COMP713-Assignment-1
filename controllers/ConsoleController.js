@@ -139,7 +139,7 @@ async function displayViewConsolePage(req, res){
             //if no console exists throw 404 not found error
             if(!consoleData){
                 //return so no further code is exectured
-                return res.status("404").render("error", {
+                return res.status(404).render("error", {
                     message: "Console not found in database"
                 });
             }
