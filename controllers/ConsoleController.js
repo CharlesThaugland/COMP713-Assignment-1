@@ -60,7 +60,7 @@ async function checkAndSubmitConsole(req, res) {
     //check the entrires of console
     let consoleCheck = await inputCheck.consolecheck(consoleData);
     
-    //accessory checj
+    //accessory check
     let accessoryCheck = true; //defualt to true if no accessories
 
     //get each accessory, check and add the data
