@@ -135,6 +135,16 @@ async function displayViewConsolePage(req, res){
         } else {
             //retrive the console and its accessories
             const consoleData = await databaseRetrive.retrieveConsole(console_id);
+
+            //if no console exists throw 404 not found error
+            if(!consoleData){
+                //return so no further code is exectured
+                return res.status("404").render("error", {
+                    message: "Console not found in database"
+                });
+            }
+
+            //conintue if console exists, get accessories
             const accessoriesData = await databaseRetrive.retrieveAccessories(console_id);
 
             //render the page sending the objects to ejs
