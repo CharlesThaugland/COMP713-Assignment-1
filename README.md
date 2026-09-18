@@ -6,7 +6,9 @@
 ## Installation and Setup
 ### Tools required
 - Docker
-- Node.js
+- Node.js & npm (normally come together)
+
+- installing both has different steps depending on OS, refer to the DOCs to install the tools
 
 ### Database Install
 - the database for this project is run on a docker container
@@ -33,5 +35,6 @@ linuxserver/mysql
 - first start the database by using docker command `docker start mysql` "mysql" is the name that was defined above, change it if you have changed the container name
 - then start the project by being in the root directory and using command `node app.js`
 - the program will ask if you want to run the database init, do so if this is the first time running this project
+- head over to your browser of choice and enter url `http://localhost:8080/`, the port `8080` is specified at launch 
 
 
