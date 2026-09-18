@@ -1,5 +1,6 @@
 //db init
 const database = require("./services/DatabaseInit");
+const connection = require("./services/DatabaseConnection");
 
 //basic setup for express.js
 const express = require('express');
@@ -16,21 +17,30 @@ app.use(express.json());
 const consoleRoutes = require("./routes/ConsoleRoutes");
 app.use("/", consoleRoutes);
 
-
-
-
-//create variables for user input in terminal (initial dialogue) 
-const read = require("readline/promises");
-const rl = read.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
-
 //server function
 async function startServer() {
+    //first run a check if db is running
+    try {
+        //function will throw error if cant establish connection
+        await connection.testConnection();
+    }
+    catch(err){
+        //display errpr and stop program
+        console.log("SVR: FATAL cannot connect to db, terminating...");
+        
+        return;
+    }
+
+    //== SERVER RUNNING STARTS HERE ==
+    //create variables for user input in terminal (initial dialogue) 
+    const read = require("readline/promises");
+    const rl = read.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    })
+
     //ask for initial database config
     let answer;
-
     do {
         //prompt user simple yes/no question
         answer = await rl.question("SVR: Run initial database clean and startup? (y/N): ");
@@ -46,10 +56,14 @@ async function startServer() {
         }
     } while (answer !== "y" && answer !== 'n' && answer !== "");
 
+    //close stdin
+    rl.close();
+
     //start server
     app.listen(port, () => {
         console.log(`SVR: server running on port ${port}`);
-    });    
+    });
+
 }
 
 startServer();

@@ -13,7 +13,7 @@
         Return Home
     </button>
     <br>
-    
+
     <!-- delete the console-->
     <form action="/home/delete" method="POST">
         <input type="hidden" name="console_id" value="<%= consoles.console_id %>"> 
@@ -34,7 +34,7 @@
     <% accessories.forEach(function(acc){ %>
 
         <div class="console">
-            <h2><%= accessories.name %></h2>
+            <h2><%= acc.name %></h2>
             <p>Condition: <%= acc.acc_condition %></p>
             <p>Model Number: <%= acc.model_no %></p>
             <p>Description: <%= acc.notes %></p>
