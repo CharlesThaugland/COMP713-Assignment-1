@@ -13,7 +13,7 @@
 ### Database Install
 - the database for this project is run on a docker container
 - install the MYSQL linuxserver.io docker container using the following docker commands
-`sudo docker create --name=mysql -p 3306:3306 -e PUID=1000 -e PGID=1000 -e MYSQL_ROOT_PASSWORD=12345678 -v /home/charles/project/db:/config linuxserver/mysql`
+`docker create --name=mysql -p 3306:3306 -e PUID=1000 -e PGID=1000 -e MYSQL_ROOT_PASSWORD=12345678 -v <path/to/appdata>:/config linuxserver/mysql`
 
 - PUID and PGID of the container can be set to 1000
 - the database password is 12345678 (very secure i know)
